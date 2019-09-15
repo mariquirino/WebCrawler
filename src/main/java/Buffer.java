@@ -6,20 +6,19 @@ import java.util.ArrayList;
  **/
 public class Buffer {
     private ArrayList<String> buffer;
-    private final Object lock = new Object();
 
     public Buffer() {
         this.buffer = new ArrayList<>();
     }
 
     public void addBuffer(String img){
-        synchronized (lock) {
+        synchronized (this) {
             buffer.add(img);
         }
     }
 
     public String removeBuffer(){
-        synchronized (lock) {
+        synchronized (this) {
             return buffer.remove(buffer.size() - 1);
         }
     }
