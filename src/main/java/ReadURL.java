@@ -22,7 +22,7 @@ public class ReadURL extends Thread {
             Elements images = document.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
             for (Element image : images) {
                 buffer.addBuffer(image.attr("src"));
-                new Download(image.attr("src"), buffer).start();
+                new Download(buffer).start();
             }
         } catch (Exception e){
             e.printStackTrace();

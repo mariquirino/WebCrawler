@@ -8,13 +8,11 @@ import java.net.URL;
  * Data: 14/09/2019
  **/
 public class Download extends Thread{
-    private String imageURL;
     private Buffer buffer;
 
-    private final String path = "C:\\Users\\Mariana\\IdeaProjects\\webCrawler\\img\\";
+    private final String path = "/home/macaxeira/IdeaProjects/webCrawler/img/";
 
-    public Download(String imageURL, Buffer buffer) {
-        this.imageURL = imageURL;
+    public Download(Buffer buffer) {
         this.buffer = buffer;
     }
 
@@ -22,7 +20,7 @@ public class Download extends Thread{
         try{
             URL url = new URL(buffer.removeBuffer());
             InputStream is = url.openStream();
-            String[] filename = imageURL.split("/");
+            String[] filename = url.toString().split("/");
 
             OutputStream os = new FileOutputStream(path + filename[filename.length - 1]);
 
@@ -38,7 +36,8 @@ public class Download extends Thread{
 
             System.out.println("Complete image " + filename[filename.length - 1]);
         } catch (Exception e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+//            e.printStackTrace();
         }
 
     }
