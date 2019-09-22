@@ -10,14 +10,14 @@ import org.jsoup.select.Elements;
 public class ReadURL extends Thread {
     private String url;
     private Buffer buffer;
-    private Run runReadURL;
-    private Run runDownload;
+    private Semaphore semaphoreReadURL;
+    private Semaphore semaphoreDownload;
 
-    public ReadURL(String url, Buffer buffer, Run runReadURL, Run runDownload) {
+    public ReadURL(String url, Buffer buffer, Semaphore semaphoreReadURL, Semaphore semaphoreDownload) {
         this.url = url;
         this.buffer = buffer;
-        this.runReadURL = runReadURL;
-        this.runDownload = runDownload;
+        this.semaphoreReadURL = semaphoreReadURL;
+        this.semaphoreDownload = semaphoreDownload;
     }
 
     public void run() {
@@ -27,12 +27,12 @@ public class ReadURL extends Thread {
             Elements images = document.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
             for (Element image : images) {
                 buffer.addBuffer(image.attr("src"));
-                runDownload.addQtd();
+                semaphoreDownload.addQtd();
             }
         } catch (Exception e){
             e.printStackTrace();
         }finally {
-            runReadURL.removeQtd();
+            semaphoreReadURL.removeQtd();
         }
 
     }

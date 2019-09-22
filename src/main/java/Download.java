@@ -9,13 +9,12 @@ import java.net.URL;
  **/
 public class Download extends Thread{
     private Buffer buffer;
-    private Run runDownload;
 
     private final String path = "/home/macaxeira/IdeaProjects/webCrawler/img/";
+//    private final String path = "C:\\Users\\Mariana\\IdeaProjects\\webCrawler\\img\\";
 
-    public Download(Buffer buffer, Run runDownload) {
+    public Download(Buffer buffer) {
         this.buffer = buffer;
-        this.runDownload = runDownload;
     }
 
     public void run() {

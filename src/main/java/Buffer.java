@@ -5,22 +5,22 @@ import java.util.ArrayList;
  * Data: 14/09/2019
  **/
 public class Buffer {
-    private ArrayList<String> buffer;
+    private ArrayList<String> imageURL;
 
     public Buffer() {
-        this.buffer = new ArrayList<>();
+        this.imageURL = new ArrayList<>();
     }
 
     public void addBuffer(String img){
         synchronized (this) {
-            buffer.add(img);
+            imageURL.add(img);
         }
     }
 
     public String removeBuffer(){
         synchronized (this) {
-            if (buffer.size() > 0) {
-                return buffer.remove(buffer.size() - 1);
+            if (!imageURL.isEmpty()) {
+                return imageURL.remove(imageURL.size() - 1);
             }
         }
         return null;
@@ -28,7 +28,7 @@ public class Buffer {
 
     public boolean isEmpty() {
         synchronized (this) {
-            return buffer.size() == 0;
+            return imageURL.isEmpty();
         }
     }
 }
