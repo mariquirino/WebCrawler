@@ -19,7 +19,16 @@ public class Buffer {
 
     public String removeBuffer(){
         synchronized (this) {
-            return buffer.remove(buffer.size() - 1);
+            if (buffer.size() > 0) {
+                return buffer.remove(buffer.size() - 1);
+            }
+        }
+        return null;
+    }
+
+    public boolean isEmpty() {
+        synchronized (this) {
+            return buffer.size() == 0;
         }
     }
 }

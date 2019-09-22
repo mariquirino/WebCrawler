@@ -9,11 +9,13 @@ import java.net.URL;
  **/
 public class Download extends Thread{
     private Buffer buffer;
+    private Run runDownload;
 
     private final String path = "/home/macaxeira/IdeaProjects/webCrawler/img/";
 
-    public Download(Buffer buffer) {
+    public Download(Buffer buffer, Run runDownload) {
         this.buffer = buffer;
+        this.runDownload = runDownload;
     }
 
     public void run() {
@@ -37,7 +39,6 @@ public class Download extends Thread{
             System.out.println("Complete image " + filename[filename.length - 1]);
         } catch (Exception e){
             System.out.println(e.getMessage());
-//            e.printStackTrace();
         }
 
     }
