@@ -11,29 +11,23 @@ public class Buffer {
     private ArrayList<String> imageURL;
 
     public Buffer() {
-        this.imageURL = new ArrayList<>();
+        this.imageURL = Collections.synchronizedList(new ArrayList<>()); 
 //        this.imageURL = new AtomicReferenceArray(10000);
     }
 
     public void addBuffer(String img){
-        synchronized (this) {
-            imageURL.add(img);
-        }
+        imageURL.add(img);
 //            imageURL.getAndSet(img);
     }
 
     public String removeBuffer(){
-        synchronized (this) {
             if (!imageURL.isEmpty()) {
                 return imageURL.remove(imageURL.size() - 1);
-            }
         }
         return null;
     }
 
     public boolean isEmpty() {
-        synchronized (this) {
-            return imageURL.isEmpty();
-        }
+        return imageURL.isEmpty();
     }
 }
