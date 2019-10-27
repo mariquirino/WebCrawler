@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class ReadFile implements Runnable {
 
-    public ReadFile(Buffer buffer, Semaphore semaphoreDownload, Semaphore semaphoreReadURL)  throws IOException {
+    public ReadFile(Buffer buffer, Semaphore semaphoreReadURL, Semaphore semaphoreDownload)  throws IOException {
         BufferedReader reader = null;
         try {
             File file = new File("urls.txt");

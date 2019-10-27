@@ -1,3 +1,6 @@
+import com.rabbitmq.client.AMQP;
+import kafka.Consumer;
+
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,8 +13,8 @@ import java.net.URL;
 public class Download extends Thread{
     private Buffer buffer;
 
-//    private final String path = "/home/macaxeira/IdeaProjects/webCrawler/img/";
-    private final String path = "C:\\Users\\Mariana\\IdeaProjects\\webCrawler\\img\\";
+    private final String path = "/home/macaxeira/IdeaProjects/webCrawler/img/";
+//    private final String path = "C:\\Users\\Mariana\\IdeaProjects\\webCrawler\\img\\";
 
     public Download(Buffer buffer) {
         this.buffer = buffer;
@@ -19,7 +22,9 @@ public class Download extends Thread{
 
     public void run() {
         try{
-            URL url = new URL(buffer.removeBuffer());
+            Consumer consumer = new Consumer();
+            URL url = new URL(consumer.run());
+//            URL url = new URL(buffer.removeBuffer());
             InputStream is = url.openStream();
             String[] filename = url.toString().split("/");
 

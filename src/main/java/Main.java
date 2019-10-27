@@ -1,3 +1,8 @@
+import Interface.IKafkaConstants;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+
+import java.util.Properties;
 
 /**
  * Criado por Mariana
@@ -10,10 +15,11 @@ public class Main {
         Semaphore semaphoreDownload = new Semaphore();
         Semaphore semaphoreReadURL = new Semaphore();
 
-        new Thread(new ReadFile(buffer, semaphoreDownload, semaphoreReadURL)).start();
+        new Thread(new ReadFile(buffer, semaphoreReadURL, semaphoreDownload)).start();
 
         while (semaphoreReadURL.getQtd() > 0 || semaphoreDownload.getQtd() > 0 ) {
-            if (semaphoreDownload.getQtd() > 0 && !buffer.isEmpty()) {
+            if (semaphoreDownload.getQtd() > 0) {
+//            if (semaphoreDownload.getQtd() > 0 && !buffer.isEmpty()) {
                 new Download(buffer).start();
                 semaphoreDownload.removeQtd();
             }

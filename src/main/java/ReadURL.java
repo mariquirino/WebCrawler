@@ -1,3 +1,4 @@
+import kafka.Producer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,11 +23,13 @@ public class ReadURL extends Thread {
 
     public void run() {
         try{
+            Producer producer = new Producer();
             System.out.println("Lendo HTML");
             Document document = Jsoup.connect(url).get();
             Elements images = document.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
             for (Element image : images) {
-                buffer.addBuffer(image.attr("src"));
+                producer.run(image.attr("src"));
+//                buffer.addBuffer(image.attr("src"));
                 semaphoreDownload.addQtd();
             }
         } catch (Exception e){

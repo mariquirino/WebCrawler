@@ -7,19 +7,16 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
  * Data: 14/09/2019
  **/
 public class Buffer {
-//    private AtomicReferenceArray<String> imageURL;
     private ArrayList<String> imageURL;
 
     public Buffer() {
         this.imageURL = new ArrayList<>();
-//        this.imageURL = new AtomicReferenceArray(10000);
     }
 
     public void addBuffer(String img){
         synchronized (this) {
             imageURL.add(img);
         }
-//            imageURL.getAndSet(img);
     }
 
     public String removeBuffer(){
